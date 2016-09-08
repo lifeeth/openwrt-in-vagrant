@@ -29,10 +29,12 @@ VBoxManage modifyvm $VMNAME \
     --memory "512" \
     --cpus "1" \
     --nic1 "nat" \
+    --cableconnected1 "on" \
     --natdnshostresolver1 "on" \
     --natpf1 "ssh,tcp,,2222,,22" \
     --natpf1 "luci,tcp,,8080,,80" \
     --nic2 "nat" \
+    --cableconnected2 "on" \
     --natdnshostresolver2 "on" \
     --uart1 "0x3F8" "4" \
     --uartmode1 server "`pwd`/serial" && \
