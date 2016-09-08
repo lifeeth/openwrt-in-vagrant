@@ -1,3 +1,4 @@
 utils/.openwrt_src/*
 utils/.vagrant/*
 *.box
+.vagrant/*
