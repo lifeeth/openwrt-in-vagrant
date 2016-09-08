@@ -1,8 +1,8 @@
 #!/bin/bash
 NAME="openwrt"
-URL="https://downloads.openwrt.org/chaos_calmer/15.05/x86/generic/openwrt-15.05-x86-generic-combined-ext4.img.gz"
-VDI="./openwrt.15.05.vdi"
-VMNAME="openwrt-15.05-x86"
+URL="https://downloads.openwrt.org/chaos_calmer/15.05.1/x86/generic/openwrt-15.05.1-x86-generic-combined-ext4.img.gz"
+VDI="./openwrt.15.05.1.vdi"
+VMNAME="openwrt-15.05.1-x86"
 SIZE="104857600"
 OPENWRT_SRC=".openwrt_src"
 
@@ -72,4 +72,4 @@ do
       sleep 1
 done
 # Export as Vagrant Box and Delete the VM
-vagrant package --base $VMNAME && VBoxManage unregistervm $VMNAME --delete
+vagrant package --base $VMNAME --output $VMNAME.box && VBoxManage unregistervm $VMNAME --delete
