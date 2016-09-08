@@ -6,6 +6,13 @@ VMNAME="openwrt-15.05-x86"
 SIZE="104857600"
 OPENWRT_SRC=".openwrt_src"
 
+if command -v ncat >/dev/null 2>&1
+then
+	NC="ncat"
+else
+	NC="nc"
+fi
+
 mkdir -p $OPENWRT_SRC
 
 if [ ! -f $OPENWRT_SRC/openwrt.img.gz ]
@@ -48,13 +55,13 @@ VBoxManage startvm $VMNAME --type "headless"
 # Use the serial port to make the image compatible with VirtualBox and comfortable for us.
 echo "Sleeping for 30s to let the image boot."
 sleep 30s
-echo "" |  nc -U serial
-echo "" |  nc -U serial
+echo "" |  $NC -U serial
+echo "" |  $NC -U serial
 
 echo "sed -i 's/eth0/eth2/g' /etc/config/network && sed -i 's/eth1/eth0/g' /etc/config/network && sed -i 's/eth2/eth1/g' /etc/config/network && \
     uci set firewall.@zone[1].input='ACCEPT' && uci set firewall.@zone[1].forward='ACCEPT' && uci commit && echo "poweroff" >> /sbin/shutdown && \
     chmod a+x /sbin/shutdown && echo -e 'root\nroot' | (passwd root) && \
-    opkg update && opkg install sudo && poweroff " | nc -U serial
+    opkg update && opkg install sudo && poweroff " | $NC -U serial
 
 echo "Waiting for commands to execute."
 
