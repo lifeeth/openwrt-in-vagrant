@@ -2,9 +2,12 @@
 
 This project helps you to run Openwrt x86 on VirtualBox with Vagrant. 
 
-# Creating a vagrant box
+# Running instructions
 
-You can utilize the `utils/create_box.sh` to create your own vagrant box with openwrt x86 releases.
+* Use the `utils/create_box.sh` to create your own vagrant box with openwrt x86 releases.
+* Add the newly created box to your vagrant environment `vagrant box add openwrt-15.05.1-x86.box --name openwrt-15.05.1-x86`
+* Now you can run `vagrant up`
+* Profit!
 
 # Changes to the image
 
