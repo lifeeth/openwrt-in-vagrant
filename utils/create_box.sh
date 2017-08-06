@@ -3,7 +3,6 @@ NAME="openwrt"
 URL="https://downloads.openwrt.org/chaos_calmer/15.05.1/x86/generic/openwrt-15.05.1-x86-generic-combined-ext4.img.gz"
 VDI="./openwrt.15.05.1.vdi"
 VMNAME="openwrt-15.05.1-x86"
-SIZE="104857600"
 OPENWRT_SRC=".openwrt_src"
 
 if command -v ncat >/dev/null 2>&1
@@ -19,6 +18,9 @@ if [ ! -f $OPENWRT_SRC/openwrt.img.gz ]
 then
     curl $URL -o $OPENWRT_SRC/openwrt.img.gz
 fi
+
+# calculate SIZE of image dynamically
+SIZE="`cat $OPENWRT_SRC/openwrt.img.gz | gunzip | wc -c`"
 
 # Inspired from http://hoverbear.org/2014/11/23/openwrt-in-virtualbox/
 cat $OPENWRT_SRC/openwrt.img.gz | gunzip | VBoxManage convertfromraw --format VDI stdin $VDI $SIZE
