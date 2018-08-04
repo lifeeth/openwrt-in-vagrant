@@ -1,8 +1,8 @@
 #!/bin/bash
 NAME="openwrt"
-URL="https://downloads.openwrt.org/chaos_calmer/15.05.1/x86/generic/openwrt-15.05.1-x86-generic-combined-ext4.img.gz"
-VDI="./openwrt.15.05.1.vdi"
-VMNAME="openwrt-15.05.1-x86"
+URL="https://downloads.openwrt.org/releases/18.06.0/targets/x86/generic/openwrt-18.06.0-x86-generic-combined-ext4.img.gz"
+VDI="./openwrt.18.06.0.vdi"
+VMNAME="openwrt-18.06.0-x86"
 OPENWRT_SRC=".openwrt_src"
 
 if command -v ncat >/dev/null 2>&1
@@ -73,5 +73,7 @@ until $(VBoxManage showvminfo --machinereadable $VMNAME | grep -q ^VMState=.powe
 do
       sleep 1
 done
+# Disconnect the uart port
+VBoxManage modifyvm $VMNAME --uartmode1 disconnected
 # Export as Vagrant Box and Delete the VM
 vagrant package --base $VMNAME --output $VMNAME.box && VBoxManage unregistervm $VMNAME --delete
